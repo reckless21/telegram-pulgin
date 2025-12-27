@@ -1,0 +1,81 @@
+openapi: 3.0.3
+
+info:
+  title: Telegram Messaging Plugin
+  description: Send messages and template-based messages to Telegram users
+  version: "1.0.0"
+
+servers:
+  - url: http://localhost:8000
+
+paths:
+  /send-message:
+    post:
+      summary: Send a plain text message to a Telegram chat
+      operationId: sendMessage
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                chat_id:
+                  type: string
+                  description: Telegram chat ID
+                text:
+                  type: string
+                  description: Message text
+              required:
+                - chat_id
+                - text
+      responses:
+        "200":
+          description: Message sent successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message_id:
+                    type: integer
+
+  /send-template:
+    post:
+      summary: Send a template-based message to a Telegram chat
+      operationId: sendTemplateMessage
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                chat_id:
+                  type: string
+                  description: Telegram chat ID
+                template:
+                  type: string
+                  description: Message template with placeholders
+                variables:
+                  type: object
+                  additionalProperties:
+                    type: string
+                  description: Key-value pairs to replace in template
+              required:
+                - chat_id
+                - template
+      responses:
+        "200":
+          description: Template message sent successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message_id:
+                    type: integer

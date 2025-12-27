@@ -1,0 +1,14 @@
+# Web Framework
+Flask==3.0.0
+
+# Environment Variables
+python-dotenv==1.0.0
+
+# HTTP Requests
+requests==2.31.0
+
+# Data validation (optional but good practice)
+pydantic==2.5.3
+
+# OpenAPI / YAML support
+PyYAML==6.0.1
