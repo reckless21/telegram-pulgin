@@ -1,4 +1,6 @@
-Telegram-plugin
+
+
+# Telegram-plugin
 
 **Author:** reckless21  
 **Version:** 0.0.1  
@@ -71,10 +73,6 @@ To configure this credential, you'll need a **Bot Access Token** from Telegram.
 
 **Reference:** [Telegram BotFather Documentation](https://core.telegram.org/bots#6-botfather)
 
-### Additional Environment Variables
-
-- `FLASK_PORT`: Port for the Flask application (default: 5000)
-- `FLASK_HOST`: Host address for the Flask application (default: 0.0.0.0)
 
 ---
 
@@ -98,19 +96,6 @@ Send a plain text message to a Telegram user or chat.
 }
 ```
 
-**API Call:**
-```python
-import requests
-
-url = f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage"
-payload = {
-    "chat_id": "123456789",
-    "text": "Hello from your bot!"
-}
-response = requests.post(url, json=payload)
-```
-
----
 
 ### 2. Send Template (`send_template`)
 
@@ -122,9 +107,19 @@ Send a pre-formatted message template to a Telegram user. This is useful for sen
 - `template_parameters`: Optional parameters for template variables (comma-separated or JSON array)
 
 **Example template parameters:**
-- Simple: `"John,123"` (for templates with `{{1}}`, `{{2}}`)
-- JSON: `[{"type":"text","text":"John"},{"type":"text","text":"123"}]`
+```json
+{
+  "chat_id": "123456789",
+  "template": "Hi {{customer_name}}, your order {{order_id}} has been shipped 🚚.\n\nTracking ID: {{tracking_id}}\nExpected Delivery: {{delivery_date}}\n\nThank you for shopping with us!",
+  "variables": {
+    "customer_name": "Tanaya",
+    "order_id": "ORD-45678",
+    "tracking_id": "SHIP123456789",
+    "delivery_date": "30 Dec 2025"
+  }
+}
 
+```
 ---
 
 ## Getting Chat IDs
@@ -168,51 +163,12 @@ For a bot to send messages to a channel, you must add it as an administrator:
 
 The Flask application exposes the following HTTP endpoints:
 
-- **GET /health**: Health check endpoint
-- **POST /send**: Send a message through the bot
-- **GET /info**: Get bot information
+- **POST /send-message**: Send a message through the bot
+- **POST /send-template**: Send a message as given template
 
 ---
 
-## Usage Examples
 
-### Send a Simple Message
-
-```python
-import requests
-
-response = requests.post('http://localhost:5000/send', json={
-    'chat_id': '123456789',
-    'text': 'Hello, World!'
-})
-print(response.json())
-```
-
-### Send a Message with Markdown
-
-```python
-import requests
-
-response = requests.post('http://localhost:5000/send', json={
-    'chat_id': '123456789',
-    'text': '*Bold text* _Italic text_ `Code`',
-    'parse_mode': 'Markdown'
-})
-print(response.json())
-```
-
----
-
-## Security Best Practices
-
-- Keep your bot token secret; never commit it to source control
-- Use environment variables or secure vaults for token storage
-- Use HTTPS in production environments
-- Implement rate limiting to prevent abuse
-- Validate and sanitize all input data
-- Regularly rotate tokens if compromised
-
----
 
 ## Troubleshooting
 
@@ -243,12 +199,3 @@ print(response.json())
 - [Telegram Bot Features](https://core.telegram.org/bots/features)
 - [Flask Documentation](https://flask.palletsprojects.com/)
 
----
-
-## License
-
-[Add your license here]
-
-## Contributing
-
-[Add contribution guidelines here]
