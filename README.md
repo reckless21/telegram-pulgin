@@ -1,6 +1,7 @@
 📬 Telegram Messaging Plugin
 
 Version: 1.0.0
+
 Type: Extension / Plugin
 
 📖 Description
