@@ -121,8 +121,8 @@ Server runs at:
 
 http://localhost:8000
 
-🧪 Testing the Plugin
-Using CURL
+🧪 Testing the Plugins
+via Using CURL
 curl -X POST http://127.0.0.1:8000/send-message \
   -H "Content-Type: application/json" \
   -d '{
